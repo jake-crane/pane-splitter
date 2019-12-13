@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<style>
+    html,
+    body {
+        margin: 0;
+        height: 100%;
+    }
+
+    .d-flex {
+        display: flex;
+    }
+
+    .flex-fill {
+        flex: 1;
+    }
+
+    .flex-column {
+        flex-direction: column;
+    }
+
+    .middle {
+        cursor: ns-resize;
+        height: 10px;
+    }
+
+    .bottom {
+        height: 300px;
+    }
+
+    .blue {
+        background-color: blue;
+    }
+
+    .green {
+        background-color: green;
+    }
+
+    .red {
+        background-color: red;
+    }
+</style>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const bottom = document.querySelector('.bottom');
+        const middle = document.querySelector('.middle');
+
+        middle.onmousemove = function (e) {
+            e.preventDefault();
+            if (e.buttons == 1)
+                bottom.style.height = getBottomPanelHeight(document.body.scrollHeight, e.pageY) + "px";
+        };
+
+        function getBottomPanelHeight(pageHeight, pageMouseY) {
+            return pageHeight - pageMouseY - middle.offsetHeight / 2;
+        }
+    });
+</script>
+
+<body class="d-flex flex-column">
+    <div class="top blue flex-fill">fill remaining space</div>
+    <div class="middle green"></div>
+    <div class="bottom red">resizable, starting at 300px</div>
+</body>
+
+</html>
