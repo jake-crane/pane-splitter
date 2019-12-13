@@ -51,12 +51,28 @@
     document.addEventListener("DOMContentLoaded", function () {
         const bottom = document.querySelector('.bottom');
         const middle = document.querySelector('.middle');
+        let dragging = false;
 
-        middle.onmousemove = function (e) {
+        document.onmousemove = function (e) {
             e.preventDefault();
-            if (e.buttons == 1)
-                bottom.style.height = getBottomPanelHeight(document.body.scrollHeight, e.pageY) + "px";
+            if (dragging) {
+                const newHeight = getBottomPanelHeight(document.body.scrollHeight, e.pageY);
+                if (newHeight > 20)
+                    bottom.style.height = newHeight + "px";
+            }
         };
+
+        document.onmouseup = function (e) {
+            dragging = false;
+        }
+
+        document.mouseleave = function (e) {
+            dragging = false;
+        }
+
+        middle.onmousedown = function (e) {
+            dragging = true;
+        }
 
         function getBottomPanelHeight(pageHeight, pageMouseY) {
             return pageHeight - pageMouseY - middle.offsetHeight / 2;
