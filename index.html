@@ -8,10 +8,15 @@
     <title>Document</title>
 </head>
 <style>
+    * {
+        box-sizing: border-box;
+    }
+
     html,
     body {
         margin: 0;
         height: 100%;
+        padding: 50px;
     }
 
     .d-flex {
@@ -26,64 +31,35 @@
         flex-direction: column;
     }
 
-    .middle {
-        cursor: ns-resize;
-        height: 10px;
-    }
-
     .bottom {
         height: 300px;
     }
 
-    .blue {
-        background-color: blue;
+    .border {
+        border: 1px solid #BDBDBD;
     }
 
-    .green {
-        background-color: green;
-    }
-
-    .red {
-        background-color: red;
+    .side {
+        width: 300px;
     }
 </style>
+<script src="./js/resizable-bottom-panel.js"></script>
+<script src="./js/resizable-vertical-panel.js"></script>
 <script>
     document.addEventListener("DOMContentLoaded", function () {
-        const bottom = document.querySelector('.bottom');
-        const middle = document.querySelector('.middle');
-        let dragging = false;
-
-        document.onmousemove = function (e) {
-            e.preventDefault();
-            if (dragging) {
-                const newHeight = getBottomPanelHeight(document.body.scrollHeight, e.pageY);
-                if (newHeight > 20)
-                    bottom.style.height = newHeight + "px";
-            }
-        };
-
-        document.onmouseup = function (e) {
-            dragging = false;
-        }
-
-        document.mouseleave = function (e) {
-            dragging = false;
-        }
-
-        middle.onmousedown = function (e) {
-            dragging = true;
-        }
-
-        function getBottomPanelHeight(pageHeight, pageMouseY) {
-            return pageHeight - pageMouseY - middle.offsetHeight / 2;
-        }
+        resizableBottomPanel(document.querySelector('.bottom'), document.querySelector('.top'));
+        resizableVerticalPanel(document.querySelector('.left'));
+        resizableVerticalPanel(document.querySelector('.right'), 'right');
     });
 </script>
 
-<body class="d-flex flex-column">
-    <div class="top blue flex-fill">fill remaining space</div>
-    <div class="middle green"></div>
-    <div class="bottom red">resizable, starting at 300px</div>
+<body class="d-flex">
+    <div class="left side border h-100">resizable left panel</div>
+    <div class="d-flex flex-column flex-fill">
+        <div class="top flex-fill border">main content top panel fills space not taken by the other panels</div>
+        <div class="bottom border">resizable bottom panel</div>
+    </div>
+    <div class="right side border">resizable right panel</div>
 </body>
 
 </html>
