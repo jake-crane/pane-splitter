@@ -1,0 +1,33 @@
+* {
+    box-sizing: border-box;
+}
+
+html, body {
+    margin: 0;
+    height: 100%;
+    padding: 50px;
+}
+
+.d-flex {
+    display: flex;
+}
+
+.flex-fill {
+    flex: 1;
+}
+
+.flex-column {
+    flex-direction: column;
+}
+
+.bottom {
+    height: 300px;
+}
+
+.border {
+    border: 1px solid #BDBDBD;
+}
+
+.side {
+    width: 300px;
+}
